@@ -47,7 +47,10 @@
 
 ---
 
-## Get an IP of a Hostname - ForwardLookup 
+## Forwardlookup 
+
+**Get an IP of a Hostname**
+
 ```shell
 #(subdomain required in most situations)
 # Basic host command:
@@ -93,7 +96,7 @@ nslookup -type=<record-type> domain.com
 dig +tarce +short domain.com
 ```
 
-**TTL Time to Live** 
+### TTL Time to Live
 
 ```shell
 dig +noall +answer +ttlid a domain.com
@@ -138,7 +141,7 @@ nslookup domain.com <nameserver-hostname>
 # And thi will give both info about the domain IP and NS IP
 ```
 
-**Query another DNS server** 
+### Query another DNS server
 
 If not NS is given to the `dig` command, dig automatically use the servers listed in the default `/etc/resolv.conf` file. To specify a name server against which the query will be executed, use the `@` (at) symbol followed by the name server IP address or hostname. This option is also available in `nslookup` by adding the ip of  choosen DNS server to query after the target domain, and also with the `host command it works the same way. This is a crucial step when searching for info about a domain that has records and hosts splited.
 
@@ -148,7 +151,7 @@ host domain.com <dns-server-ip>
 nslookup domain.com <dns-server-ip>
 ```
 
-**/etc/resolv.conf** 
+### /etc/resolv.conf
 
 It's crucial to keep in mind that if you are dealing with a private network or a particular situation in which the the name server is not reachable directly from your DSN configuaretions, you need to manually add the private/custom dns NS to the resolv.conf file in order to be able to comunicate with it properly!
 And it have to be added at the beginning before your default nameserver:
@@ -166,7 +169,9 @@ There is also a resolvconf app that can handle all of this for you, if you don't
 
 ---
 
-## Get the Hostname of an IP - ReverseLookup 
+## ReverseLookup 
+
+**Get the Hostname of an IP**
 
 ```shell
 # host:
@@ -182,7 +187,9 @@ dig 66.23.168.192.in-addr.arpa PTR
 nslookup domain.com
 ```
 
-## Nmap Scan target range for a reverse DNS lookup 
+## Nmap Scan Reverselookup
+
+Scan a target range for a reverse DNS lookup
 
 ```shell
 # -sL: perform only a dns resolution not a proper scan
