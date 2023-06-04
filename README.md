@@ -2,7 +2,7 @@
 
 ## Table of contents
 - [DNS Record types](#dns-record-types)
-  - [ForwardLookup](#forwardlookup)
+- [ForwardLookup](#forwardlookup)
 - [Query a specific type of DNS Record](#query-a-specific-type-of-dns-record)
 - [Trace DNS route](#trace-dns-route)
   - [TTL](#TTL)
