@@ -8,7 +8,7 @@
   - [TTL](#TTL)
 - [Name Server](#name-server)
   - [Query another DNS server](#query-another-dns-server)
-  - [/etc/resolv.conf](#/etc/resolv.conf)
+  - [\/etc\/resolv.conf](#/etc/resolv.conf)
 - [ReverseLookup](#reverselookup)
 - [Nmap Scan reverselookup](#nmap-scan-reverselookup)
 - [Subdomain Enumeration](#subdomain-enumeration)
@@ -17,7 +17,6 @@
 - [Zone Transfer](#zone-transfer)
   - [Scan result targets](#scan-result-targets)
 - [Host discovering automation](#host-discovering-automation)
-  - [dnsrecon](#dnsrecon)
 - [Wildcard entries and Bypass](#wildcard-entries-and-Bypass)
 - [Additional dig features](#additional-dig-features)
 - [Clear DNS Cache](#clear-dns-cache)
@@ -272,7 +271,6 @@ Internal network discovery
 # SQLite DB file
 dnsrecon -n <namserver-ip> -r 192.168.0.0/24 --db target.db
 ```
-#
 
 Just brief example with `host` command, customizable.
 
