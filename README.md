@@ -7,11 +7,11 @@
 - [Trace DNS route](#trace-dns-route)
   - [TTL](#TTL)
 - [Name Server](#name-server)
-  - [Query another DNS server](#queryanother-dns-server)
+  - [Query another DNS server](#query-another-dns-server)
   - [/etc/resolv.conf](#/etc/resolv.conf)
 - [ReverseLookup](#reverselookup)
 - [Nmap Scan reverselookup](#nmap-scan-reverselookup)
-- [Sub-Domain Enumeration](#sub-domain-enumeration)
+- [Subdomain Enumeration](#subdomain-enumeration)
   - [dnsrecon](#dnsrecon)
   - [bash](#bash)
 - [Zone Transfer](#zone-transfer)
@@ -96,7 +96,9 @@ nslookup -type=<record-type> domain.com
 dig +tarce +short domain.com
 ```
 
-### TTL Time to Live
+### TTL 
+
+Time to Live
 
 ```shell
 dig +noall +answer +ttlid a domain.com
