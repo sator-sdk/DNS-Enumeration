@@ -1,7 +1,31 @@
 # DNS Enumeration
 
+## Table of contents
+1. [DNS Record types](#DNS Record types)
+2. [ForwardLookup](#ForwardLookup)
+3. [Query a specific type of DNS Record](#Query a specific type of DNS Record)
+4. [Trace DNS route](#Trace DNS route)
+ 1. [TTL](#TTL)
+5. [Name Server](#Name Server)
+ 1. [Query another DNS server](#Query another DNS server)
+ 2. [/etc/resolv.conf](#/etc/resolv.conf)
+6. [ReverseLookup](#ReverseLookup)
+7. [Nmap Scan forwardlookup](#Nmap Scan forwardlookup)
+8. [Sub-Domain Enumeration](#Sub-Domain Enumeration)
+ 1.[dnsrecon](#dnsrecon)
+ 2.[bash](#bash)
+9. [Zone Transfer](#Zone Transfer)
+ 1. [Scan result targets](#Scan result targets)
+10. [Host discovering automation](#Host discovering automation)
+ 1.[dnsrecon](#dnsrecon)
+12. [Wildcard entries and Bypass](#Wildcard entries and Bypass)
+13. [Additional dig features](#Additional dig features)
+14. [Clear DNS Cache](#Clear DNS Cache)
+15. [Tools](#Tools)
+16. [Websites](#Websites)
 
-## DNS Record types
+
+## DNS Record types <a name="DNS Record types"></a>
 
 - **SOA**: The Start of Authority record contains administrative information about the zone transfers. This record shows the DNS server that contains the best (Authoritative) source of information for that specific domain. The output includes the primary name server, mail address, TTL, and more.
 
@@ -23,7 +47,7 @@
 
 ---
 
-## Get an IP of a Hostname - ForwardLookup
+## Get an IP of a Hostname - ForwardLookup <a name="Forwardlookup"></a>
 
 ```shell
 #(subdomain required in most situations)
@@ -43,7 +67,7 @@ nslookup www.domain.com
 ```
 ---
 
-## Query a specific type of DNS Record
+## Query a specific type of DNS Record <a name="Query a specific type of DNS Record"></a>
 
 ```shell
 # host:
@@ -62,7 +86,7 @@ nslookup -type=<record-type> domain.com
 
 ---
 
-## Trace DNS route
+## Trace DNS route <a name="Trace DNS route"></a>
 
  Follow the delegation path from the root name servers for the name being looked up.
 
@@ -70,7 +94,7 @@ nslookup -type=<record-type> domain.com
 dig +tarce +short domain.com
 ```
 
-**TTL Time to Live**
+**TTL Time to Live** <a name="TTL"></a>
 
 ```shell
 dig +noall +answer +ttlid a domain.com
@@ -78,7 +102,7 @@ dig +noall +answer +ttlid a domain.com
 
 ---
 
-## Name Server
+## Name Server <a name="Name Server"></a>
 
 A Name server is used for handling requests related to a domain, and those are the authoritative name servers.
 Multiple name server tipically exist for a domain, for many reasons, and all are or should be in many cases sync with each other.
@@ -115,7 +139,7 @@ nslookup domain.com <nameserver-hostname>
 # And thi will give both info about the domain IP and NS IP
 ```
 
-**Query another DNS server**
+**Query another DNS server** <a name="Query another DNS server"></a>
 
 If not NS is given to the `dig` command, dig automatically use the servers listed in the default `/etc/resolv.conf` file. To specify a name server against which the query will be executed, use the `@` (at) symbol followed by the name server IP address or hostname. This option is also available in `nslookup` by adding the ip of  choosen DNS server to query after the target domain, and also with the `host command it works the same way. This is a crucial step when searching for info about a domain that has records and hosts splited.
 
@@ -125,7 +149,7 @@ host domain.com <dns-server-ip>
 nslookup domain.com <dns-server-ip>
 ```
 
-**/etc/resolv.conf**
+**/etc/resolv.conf** <a name="/etc/resolv.conf"></a>
 
 It's crucial to keep in mind that if you are dealing with a private network or a particular situation in which the the name server is not reachable directly from your DSN configuaretions, you need to manually add the private/custom dns NS to the resolv.conf file in order to be able to comunicate with it properly!
 And it have to be added at the beginning before your default nameserver:
@@ -143,7 +167,7 @@ There is also a resolvconf app that can handle all of this for you, if you don't
 
 ---
 
-## Get the Hostname of an IP - ReverseLookup
+## Get the Hostname of an IP - ReverseLookup <a name="ReverseLookup"></a>
 
 ```shell
 # host:
@@ -159,7 +183,7 @@ dig 66.23.168.192.in-addr.arpa PTR
 nslookup domain.com
 ```
 
-## Nmap Scan target range for a reverse DNS lookup
+## Nmap Scan target range for a reverse DNS lookup <a name="Nmap Scan forwardlookup"></a>
 
 ```shell
 # -sL: perform only a dns resolution not a proper scan
@@ -170,15 +194,15 @@ nslookup domain.com
 
 ---
 
-## Sub-Domain Enumeration
+## Sub-Domain Enumeration <a name="Sub-Domain Enumeration"></a>
 
-**dnsrecon**
+**dnsrecon** <a name="dnsrecon"></a>
 
 ```shell
 dnsrecon -d domain.com -D /usr/share/seclists/Discovery/DNS/... -t brt
 ```
 
-**bash**
+**bash** <a name="bash"></a>
 
 ```shell
 for i in $(cat /usr/share/seclists/Discovery/DNS/subdomains-top1million-5000.txt); do host $i.domain.com; done | grep "has address"
@@ -186,7 +210,7 @@ for i in $(cat /usr/share/seclists/Discovery/DNS/subdomains-top1million-5000.txt
 
 ---
 
-## Zone Transfer
+## Zone Transfer <a name="Zone Transfer"></a>
 
 DNS Zone [Wiki](https://en.wikipedia.org/wiki/DNS_zone)
 
@@ -214,7 +238,7 @@ dnsrecon -d domain.com -t axfr
 dnsenum domain.com
 ```
 
-**Scan result targets**
+**Scan result targets** <a name="Scan result targets"></a>
 
 ```shell
 # append http:// at the beginning of each domain name
@@ -230,9 +254,9 @@ Useful guide [link](https://infinitelogins.com/2020/04/23/performing-dns-zone-tr
 
 ---
 
-## Host discovering automation
+## Host discovering automation <a name="Host discovering automation"></a>
 
-**dnsrecon**
+**dnsrecon** <a name="Forwardlookup"></a>
 
 Internal network discovery
 
@@ -254,7 +278,7 @@ for i in $(seq 1 256); do host 192.168.200.$i; done | grep -v "not found"
 
 ---
 
-## Wildcard entries and Bypass
+## Wildcard entries and Bypass <a name="Wildcard entries and Bypass"></a>
 
 A wildcard DNS record is a record in a DNS zone that will match requests for non-existent domain names. [Wiki](https://en.wikipedia.org/wiki/Wildcard_DNS_record)
 
@@ -262,7 +286,7 @@ TO DO
 
 ---
 
-### Additional dig features
+### Additional dig features <a name="Additional dig features"></a>
 
 **Force IP transport version**
 
@@ -284,7 +308,7 @@ Use the `+[no]vc` or `+[no]tcp` flag to control TCP or UDP protcols. Please note
 
 ---
 
-### Clear DNS Cache
+### Clear DNS Cache <a name="Clear DNS Cache"></a>
 
 ```shell
 # Windows
@@ -321,7 +345,7 @@ resolvectl flush-caches
 
 ---
 
-## Tools
+## Tools <a name="Tools"></a>
 
 - [dnsrecon](https://github.com/darkoperator/dnsrecon)
 
@@ -339,7 +363,7 @@ resolvectl flush-caches
 
 ---
 
-## Websites
+## Websites <a name="Websites"></a>
 
 - [DNS Checker](https://dnschecker.org/all-tools.php)
 
