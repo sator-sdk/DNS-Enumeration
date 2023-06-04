@@ -31,7 +31,7 @@
 
 - **NS**: Nameserver records contain the name of the authoritative servers hosting the DNS records for a domain.
 
-- **A**: Also known as a host record, the "a record" contains the IP address of a hostname (such as www.domain.com).
+- **A**: Also known as a host record, the "a record" contains the IP address of a hostname.
 
 - **AAAA**: IPv6 address.
 
