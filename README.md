@@ -25,7 +25,7 @@
 - [Websites](#websites)
 
 
-## DNS Record types <a name="DNS Record types"></a>
+## DNS Record types 
 
 - **SOA**: The Start of Authority record contains administrative information about the zone transfers. This record shows the DNS server that contains the best (Authoritative) source of information for that specific domain. The output includes the primary name server, mail address, TTL, and more.
 
