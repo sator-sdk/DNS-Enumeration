@@ -7,8 +7,8 @@
 - [Trace DNS route](#trace-dns-route)
 - [Name Server](#name-server)
 - [ReverseLookup](#reverselookup)
-- [Nmap Scan reverselookup](#nmap-scan-reverselookup)
 - [Subdomain Enumeration](#subdomain-enumeration)
+- [Nmap Scan reverselookup](#nmap-scan-reverselookup)
 - [Zone Transfer](#zone-transfer)
 - [Host discovering automation](#host-discovering-automation)
 - [Wildcard entries and Bypass](#wildcard-entries-and-Bypass)
@@ -195,7 +195,7 @@ Scan a target range for a reverse DNS lookup
 
 ---
 
-## Sub-Domain Enumeration 
+## Subdomain Enumeration 
 
 **dnsrecon** 
 
