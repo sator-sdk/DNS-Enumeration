@@ -240,6 +240,13 @@ dnsenum domain.com
 ```
 
 **Scan result targets** 
+introduction of three extremely powerful instruments, detailed guide on each of those later on.
+Aquatone is slow and not mantained anymore so I dont suggest it anymore.
+
+* [Katana](https://github.com/projectdiscovery/katana)
+* [httpx](https://github.com/projectdiscovery/httpx)
+* [HEDnsExtractor](https://github.com/HuntDownProject/HEDnsExtractor)
+
 
 ```shell
 # append http:// at the beginning of each domain name
@@ -247,11 +254,18 @@ sed 's/^/https:\/\//' livetargets > www-livetargets
 # or the following command to overwrite the file
 sed -i 's/^/https:\/\//' livetargets
 
+# httpx
+subfinder -d domain.com -silent | httpx -title -tech-detect -status-code
+##or
+dig axfr @<nameserver-ip> domain.com +answer > zonetransfer
+cat zonetransfer | grep domain.com | grep IN | awk '{print $1}' | sed 's/\.$//g' | sort -u > livetargets
+cat livetargets | httpx -title -tech-detect -status-code
+
 # aquatone
 cat www-livetargets | aquatone
 ```
 
-Useful guide [link](https://infinitelogins.com/2020/04/23/performing-dns-zone-transfer/)
+Useful guide [link](https://www.hackingarticles.in/a-detailed-guide-on-httpx/)
 
 ---
 
